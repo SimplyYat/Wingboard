@@ -1,0 +1,293 @@
+meta:
+  engine: 4.1.0 # Min Ergogen version for KiCad 8 footprints
+units:
+  # Proxy Spacing Variables
+  kx: cx
+  ky: cy
+  # Padding Variables
+  px: kx + 4
+  py: ky + 4
+points:
+  zones:
+    matrix:
+      key:
+        padding: ky
+        spread: kx
+      anchor:
+        rotate: 5
+        # Fix placement on KiCAD sheet.
+        shift: [100, -100]
+      columns:
+        pinky:
+          rows.r5.skip: true
+          key.column_net: P031
+          key.mirror.column_net: P100
+        ring:
+          key.splay: -5
+          key.origin: [-12, -19]
+          key.stagger: 12
+          rows.r5.skip: true
+          key.column_net: P029
+          key.mirror.column_net: P024
+        middle:
+          key.stagger: 5
+          key.column_net: P002
+          key.mirror.column_net: P022
+        index:
+          key.stagger: -6
+          rows.r5.skip: true
+          key.column_net: P115
+          key.mirror.column_net: P020
+        inner:
+          key.stagger: -2
+          rows.r5.skip: true
+          key.column_net: P113
+          key.mirror.column_net: P017
+      rows:
+        r5:
+          row_net: P009
+        r4:
+          row_net: P107
+        r3:
+          row_net: P102
+        r2:
+          row_net: P101
+        r1:
+          row_net: P106
+    thumbfan:
+      key:
+        padding: ky
+        spread: kx
+      anchor:
+        ref: matrix_inner_r4
+        shift: [-7, -19]
+      columns:
+        near:
+          key.column_net: P029
+          key.mirror.column_net: P024
+        home:
+          key.spread: 21.25
+          key.splay: -28
+          key.origin: [-11.75, -9]
+          key.column_net: P115
+          key.mirror.column_net: P020
+        far:
+          key.spread: 21.25
+          key.splay: -28
+          key.origin: [-9.5, -9]
+          key.column_net: P113
+          key.mirror.column_net: P017
+      rows:
+        thumb:
+          row_net: P009
+  rotate: -20
+  mirror:
+    ref: matrix_pinky_r5
+    distance: 233.7529778
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      size: [px, py]
+  keys:
+    - what: rectangle
+      where: true
+      bound: false
+      size: [kx-0.5,ky-0.5]
+  battery:
+    - what: rectangle
+      size: [36,56]
+      where:
+        ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
+        shift: [0,-37.5]
+        rotate: 90
+  board:
+    - what: polygon
+      operation: stack
+      fillet: 3
+      points:
+        - ref: matrix_pinky_r1
+          shift: [-0.5px,0.5py]
+        - ref: matrix_ring_r1
+          shift: [-0.5px,0.5py]
+        - ref: matrix_middle_r1
+          shift: [-0.5px,0.5py]
+        - ref: matrix_middle_r1
+          shift: [0.5px,0.5py]
+        - ref: matrix_inner_r1
+          shift: [0.5px,0.5py]
+        - ref: mirror_matrix_inner_r1
+          shift: [0.5px,0.5py]
+        - ref: mirror_matrix_middle_r1
+          shift: [0.5px,0.5py]
+        - ref: mirror_matrix_middle_r1
+          shift: [-0.5px,0.5py]
+        - ref: mirror_matrix_ring_r1
+          shift: [-0.5px,0.5py]
+        - ref: mirror_matrix_pinky_r1
+          shift: [-0.5px,0.5py]
+        - ref: mirror_matrix_pinky_r4
+          shift: [-0.5px,-0.5py]
+        - ref: mirror_matrix_pinky_r4
+          shift: [0.5px,-0.5py]
+        - ref: mirror_matrix_middle_r5
+          shift: [0,-0.6py]
+        - ref: mirror_thumbfan_near_thumb
+          shift: [-0.5px,-0.5py]
+        - ref: mirror_thumbfan_near_thumb
+          shift: [0.5px,-0.5py]
+        - ref: mirror_thumbfan_far_thumb
+          shift: [-0.5px,-0.5py]
+        - ref: mirror_thumbfan_far_thumb
+          shift: [0.5px,-0.5py]
+        - ref: mirror_thumbfan_far_thumb
+          shift: [0.5px,0.5py]
+        - ref: thumbfan_far_thumb
+          shift: [0.5px,0.5py]
+        - ref: thumbfan_far_thumb
+          shift: [0.5px,-0.5py]
+        - ref: thumbfan_far_thumb
+          shift: [-0.5px,-0.5py]
+        - ref: thumbfan_near_thumb
+          shift: [0.5px,-0.5py]
+        - ref: thumbfan_near_thumb
+          shift: [-0.5px,-0.5py]
+        - ref: matrix_middle_r5
+          shift: [0,-0.6py]
+        - ref: matrix_pinky_r4
+          shift: [0.5px,-0.5py]
+        - ref: matrix_pinky_r4
+          shift: [-0.5px,-0.5py]
+  combo:
+      - name: board
+      - operation: subtract
+        name: keys
+      - operation: subtract
+        name: battery
+  cutboard:
+    - name: board
+    - operation: subtract
+      name: battery
+pcbs:
+  primary:
+    template: kicad8 # Required, since footprints are KiCad 8 only
+    outlines:
+      main:
+        outline: cutboard
+    footprints:
+      choc_hotswap:
+        what: choc
+        where: true
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+      diode:
+        what: diode
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+      mcu:
+        what: mcu_supermini_nrf52840
+        params:
+          reverse_mount: true
+          include_extra_pins: true
+          show_silk_labels_on_both_sides: true
+          P1_label: "006"
+          P0_label: "008"
+          P2_label: "017"
+          P3_label: "020"
+          P4_label: "022"
+          P5_label: "024"
+          P6_label: "100"
+          P7_label: "011"
+          P8_label: "104"
+          P9_label: "106"
+          P21_label: "031"
+          P20_label: "029"
+          P19_label: "002"
+          P18_label: "115"
+          P15_label: "113"
+          P14_label: "111"
+          P16_label: "010"
+          P10_label: "009"
+          P101_label: "101"
+          P102_label: "102"
+          P107_label: "107"
+          RAW: "RAW"
+          GND: "GND"
+          RST: "RST"
+          VCC: "VCC"
+          P21: "P031"
+          P20: "P029"
+          P19: "P002"
+          P18: "P115"
+          P15: "P113"
+          P14: "P111"
+          P16: "P010"
+          P10: "P009"
+          P1: "P006"
+          P0: "P008"
+          P2: "P017"
+          P3: "P020"
+          P4: "P022"
+          P5: "P024"
+          P6: "P100"
+          P7: "P011"
+          P8: "P104"
+          P9: "P106"
+          P101: "P101"
+          P102: "P102"
+          P107: "P107"
+        where:
+          ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
+          shift: [0,5]
+          rotate: 0
+      display:
+        what: display_nice_view
+        where:
+          ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
+          shift: [0,4]
+          rotate: 0
+      reset:
+        what: button
+        params:
+          from: GND
+          to: RST
+        where:
+          ref: matrix_inner_r2
+          shift: [16, -6]
+          rotate: -70
+      power_switch:
+        what: slider
+        params:
+            side: B
+            from: BAT_P
+            to: RAW
+        where:
+          ref: matrix_index_r1
+          shift: [6.434,11.534]
+          rotate: -12.5
+      battery_connector:
+        what: battery_connector_jst_ph_2
+        params:
+          side: B
+          BAT_P: BAT_P
+          BAT_N: GND
+        where:
+          ref: mirror_matrix_inner_r2
+          shift: [14, 0]
+          rotate: 20
+      rotary_encoder:
+        what: rotary_encoder_ec11_ec12
+        params:
+          include_plate_hole_marking: true
+        where:
+          ref.aggregate.parts: [thumbfan_home_thumb, mirror_thumbfan_home_thumb]
+          shift: [0, -4]
+          rotate: 90
