@@ -7,6 +7,9 @@ units:
   # Padding Variables
   px: kx + 4
   py: ky + 4
+  # Half values
+  halfX: (px / 2)
+  halfY: (py / 2)
 points:
   zones:
     matrix:
@@ -21,41 +24,41 @@ points:
         pinky:
           rows.r5.skip: true
           key.column_net: P031
-          key.mirror.column_net: P100
+          key.mirror.column_net: P022
         ring:
           key.splay: -5
           key.origin: [-12, -19]
           key.stagger: 12
           rows.r5.skip: true
           key.column_net: P029
-          key.mirror.column_net: P024
+          key.mirror.column_net: P020
         middle:
           key.stagger: 5
           key.column_net: P002
-          key.mirror.column_net: P022
+          key.mirror.column_net: P017
           rows.r5.column_net: P029
-          rows.r5.mirror.column_net: P024
+          rows.r5.mirror.column_net: P020
         index:
           key.stagger: -6
           rows.r5.skip: true
           key.column_net: P115
-          key.mirror.column_net: P020
+          key.mirror.column_net: P008
         inner:
           key.stagger: -2
           rows.r5.skip: true
           key.column_net: P113
-          key.mirror.column_net: P017
+          key.mirror.column_net: P006
       rows:
         r5:
-          row_net: P009
-        r4:
-          row_net: P107
-        r3:
-          row_net: P102
-        r2:
-          row_net: P101
-        r1:
           row_net: P106
+        r4:
+          row_net: P104
+        r3:
+          row_net: P009
+        r2:
+          row_net: P010
+        r1:
+          row_net: P111
     thumbfan:
       key:
         padding: ky
@@ -66,22 +69,22 @@ points:
       columns:
         near:
           key.column_net: P002
-          key.mirror.column_net: P022
+          key.mirror.column_net: P017
         home:
           key.spread: 21.25
           key.splay: -28
           key.origin: [-11.75, -9]
           key.column_net: P115
-          key.mirror.column_net: P020
+          key.mirror.column_net: P008
         far:
           key.spread: 21.25
           key.splay: -28
           key.origin: [-9.5, -9]
           key.column_net: P113
-          key.mirror.column_net: P017
+          key.mirror.column_net: P006
       rows:
         thumb:
-          row_net: P009
+          row_net: P106
   rotate: -20
   mirror:
     ref: matrix_pinky_r5
@@ -109,57 +112,57 @@ outlines:
       fillet: 3
       points:
         - ref: matrix_pinky_r1
-          shift: [-0.5px,0.5py]
+          shift: [-halfX,halfY]
         - ref: matrix_ring_r1
-          shift: [-0.5px,0.5py]
+          shift: [-halfX,halfY]
         - ref: matrix_middle_r1
-          shift: [-0.5px,0.5py]
+          shift: [-halfX,halfY]
         - ref: matrix_middle_r1
-          shift: [0.5px,0.5py]
+          shift: [halfX,halfY]
         - ref: matrix_inner_r1
-          shift: [0.5px,0.5py]
+          shift: [halfX,halfY]
         - ref: mirror_matrix_inner_r1
-          shift: [0.5px,0.5py]
+          shift: [halfX,halfY]
         - ref: mirror_matrix_middle_r1
-          shift: [0.5px,0.5py]
+          shift: [halfX,halfY]
         - ref: mirror_matrix_middle_r1
-          shift: [-0.5px,0.5py]
+          shift: [-halfX,halfY]
         - ref: mirror_matrix_ring_r1
-          shift: [-0.5px,0.5py]
+          shift: [-halfX,halfY]
         - ref: mirror_matrix_pinky_r1
-          shift: [-0.5px,0.5py]
+          shift: [-halfX,halfY]
         - ref: mirror_matrix_pinky_r4
-          shift: [-0.5px,-0.5py]
+          shift: [-halfX,-halfY]
         - ref: mirror_matrix_pinky_r4
-          shift: [0.5px,-0.5py]
+          shift: [halfX,-halfY]
         - ref: mirror_matrix_middle_r5
           shift: [0,-0.6py]
         - ref: mirror_thumbfan_near_thumb
-          shift: [-0.5px,-0.5py]
+          shift: [-halfX,-halfY]
         - ref: mirror_thumbfan_near_thumb
-          shift: [0.5px,-0.5py]
+          shift: [halfX,-halfY]
         - ref: mirror_thumbfan_far_thumb
-          shift: [-0.5px,-0.5py]
+          shift: [-halfX,-halfY]
         - ref: mirror_thumbfan_far_thumb
-          shift: [0.5px,-0.5py]
+          shift: [halfX,-halfY]
         - ref: mirror_thumbfan_far_thumb
-          shift: [0.5px,0.5py]
+          shift: [halfX,halfY]
         - ref: thumbfan_far_thumb
-          shift: [0.5px,0.5py]
+          shift: [halfX,halfY]
         - ref: thumbfan_far_thumb
-          shift: [0.5px,-0.5py]
+          shift: [halfX,-halfY]
         - ref: thumbfan_far_thumb
-          shift: [-0.5px,-0.5py]
+          shift: [-halfX,-halfY]
         - ref: thumbfan_near_thumb
-          shift: [0.5px,-0.5py]
+          shift: [halfX,-halfY]
         - ref: thumbfan_near_thumb
-          shift: [-0.5px,-0.5py]
+          shift: [-halfX,-halfY]
         - ref: matrix_middle_r5
           shift: [0,-0.6py]
         - ref: matrix_pinky_r4
-          shift: [0.5px,-0.5py]
+          shift: [halfX,-halfY]
         - ref: matrix_pinky_r4
-          shift: [-0.5px,-0.5py]
+          shift: [-halfX,-halfY]
   combo:
       - name: board
       - operation: subtract
@@ -171,7 +174,7 @@ outlines:
     - operation: subtract
       name: battery
 pcbs:
-  primary:
+  wingboard:
     template: kicad8 # Required, since footprints are KiCad 8 only
     outlines:
       main:
@@ -252,6 +255,12 @@ pcbs:
           rotate: 0
       display:
         what: display_nice_view
+        params:
+          MOSI: P107
+          SCK: P102
+          VCC: VCC
+          GND: GND
+          CS: P101
         where:
           ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
           shift: [0,4]
@@ -289,7 +298,50 @@ pcbs:
         what: rotary_encoder_ec11_ec12
         params:
           include_plate_hole_marking: true
+          A: P024
+          B: GND
+          C: P100
         where:
           ref.aggregate.parts: [thumbfan_home_thumb, mirror_thumbfan_home_thumb]
           shift: [0, -4]
           rotate: 90
+      # Mounting holes
+      hole_top_left:
+        what: mounting_hole_plated
+        where:
+          ref: matrix_pinky_r1
+          shift: [0.55px, 0.6py]
+      hole_bottom_left_under_ring:
+        what: mounting_hole_plated
+        where:
+          ref: matrix_ring_r4
+          shift: [0, -0.75py]
+      hole_bottom_left_under_index:
+        what: mounting_hole_plated
+        where:
+          ref: matrix_index_r4
+          shift: [-0.2px, -py]
+      hole_center:
+        what: mounting_hole_plated
+        where:
+          ref.aggregate.parts: [thumbfan_far_thumb, mirror_thumbfan_far_thumb]
+          shift: [0, 0]
+      hole_top_right:
+        what: mounting_hole_plated
+        where:
+          ref: mirror_matrix_pinky_r1
+          shift: [0.55px, 0.6py]
+      hole_bottom_right_under_ring:
+        what: mounting_hole_plated
+        where:
+          ref: mirror_matrix_ring_r4
+          shift: [0, -0.75py]
+      hole_bottom_right_under_index:
+        what: mounting_hole_plated
+        where:
+          ref: mirror_matrix_index_r4
+          shift: [-0.2px, -py]
+cases:
+  bottom:
+    - name: board
+      extrude: 1
