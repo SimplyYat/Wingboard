@@ -172,6 +172,14 @@ outlines:
           shift: [halfX,-halfY]
         - ref: matrix_pinky_r4
           shift: [-halfX,-halfY]
+  combo:
+      - name: board
+      - operation: subtract
+        name: keys
+  cutboard:
+    - name: board
+    - operation: subtract
+      name: battery
   xlBoard:
     - what: polygon
       operation: stack
@@ -229,16 +237,6 @@ outlines:
           shift: [dHalfX,-dHalfY]
         - ref: matrix_pinky_r4
           shift: [-dHalfX,-dHalfY]
-  combo:
-      - name: board
-      - operation: subtract
-        name: keys
-      - operation: subtract
-        name: battery
-  cutboard:
-    - name: board
-    - operation: subtract
-      name: battery
   mounting:
     - what: circle
       radius: screwSize
