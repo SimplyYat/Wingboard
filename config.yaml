@@ -33,6 +33,8 @@ points:
           key.stagger: 5
           key.column_net: P002
           key.mirror.column_net: P022
+          rows.r5.column_net: P029
+          rows.r5.mirror.column_net: P024
         index:
           key.stagger: -6
           rows.r5.skip: true
@@ -63,8 +65,8 @@ points:
         shift: [-7, -19]
       columns:
         near:
-          key.column_net: P029
-          key.mirror.column_net: P024
+          key.column_net: P002
+          key.mirror.column_net: P022
         home:
           key.spread: 21.25
           key.splay: -28
