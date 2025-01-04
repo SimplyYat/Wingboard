@@ -17,4 +17,4 @@ A unibody ergonomic keyboard developed using [Ergogen](https://github.com/ergoge
     6. [ ] Screw holes
  2. [ ] Adjust bottom case height to allow battery and PCB clearance
  3. [ ] Route PCB
- 4. (Nice to have) [ ] Add Wings image to PCB
+ 4. [ ] Add Wings image to PCB (Nice to have) 
