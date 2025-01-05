@@ -1,9 +1,14 @@
 meta:
   engine: 4.1.0 # Min Ergogen version for KiCad 8 footprints
+  version: 0.1
+  author: "SimplyYat"
 units:
-  # Proxy Spacing Variables
+  # Key Size Variables (cx and cy are choc sizes, replace with u for mx)
   kx: cx
   ky: cy
+  # Switch size variables
+  sx: 14
+  sy: 14
   # Padding Variables
   px: kx + 4
   py: ky + 4
@@ -99,15 +104,18 @@ points:
     ref: matrix_pinky_r5
     distance: 233.7529778
 outlines:
-  raw:
-    - what: rectangle
-      where: true
-      size: [px, py]
+  # Will be used for the PCB
   keys:
     - what: rectangle
       where: true
       bound: false
       size: [kx-0.5,ky-0.5]
+  # Will be used for the mock PCB and the top case
+  switches:
+    - what: rectangle
+      where: true
+      bound: false
+      size: [sx,sy]
   battery:
     - what: rectangle
       size: [36,56]
@@ -172,10 +180,12 @@ outlines:
           shift: [halfX,-halfY]
         - ref: matrix_pinky_r4
           shift: [-halfX,-halfY]
-  combo:
+  comboMockPCB:
       - name: board
       - operation: subtract
-        name: keys
+        name: battery
+      - operation: subtract
+        name: switches
   cutboard:
     - name: board
     - operation: subtract
@@ -316,12 +326,13 @@ pcbs:
       main:
         outline: cutboard
     footprints:
-      choc_hotswap:
-        what: choc
+      choc_keys:
+        what: switch_choc_v1_v2
         where: true
         params:
-          keycaps: true
-          reverse: false
+          include_keycap: true
+          include_corner_marks: true
+          reversible: false
           hotswap: true
           from: "{{column_net}}"
           to: "{{colrow}}"
@@ -478,10 +489,10 @@ pcbs:
           ref: mirror_matrix_index_r4
           shift: [-0.2px, -py]
 cases:
-  bottom:
+  _bottom:
     - name: board
       extrude: 1
-  xlBottom:
+  _xlBottom:
     - name: xlBoard
       extrude: 1
   _outerWall:
@@ -490,7 +501,7 @@ cases:
   _innerWall:
     - name: board
       extrude: 4
-  wall:
+  _wall:
     - what: case
       name: _outerWall
       operation: add
@@ -503,7 +514,7 @@ cases:
   _standoffs:
     - name: standoff
       extrude: 4
-  case:
+  caseBottom:
     - what: case
       name: _standoffs
       operation: add
@@ -511,8 +522,11 @@ cases:
       name: _holes
       operation: subtract
     - what: case
-      name: xlBottom
+      name: _xlBottom
       operation: add
     - what: case
-      name: wall
+      name: _wall
       operation: add
+  mockPCB:
+    - name: comboMockPCB
+      extrude: 1.6

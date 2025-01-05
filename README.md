@@ -1,8 +1,9 @@
 # Wingboard
-A unibody ergonomic keyboard developed using [Ergogen](https://github.com/ergogen/ergogen) based on the [Absolem keyboard design](https://zealot.hu/absolem/).
 
 > [!IMPORTANT]
 > This is a work in progress.
+
+A unibody ergonomic keyboard developed using [Ergogen](https://github.com/ergogen/ergogen) based on the [Absolem keyboard design](https://zealot.hu/absolem/).
 
 ## Row Column Matrix
 ![Rows and Columns matrix](./images/row-column-matrix.png)
@@ -18,3 +19,9 @@ A unibody ergonomic keyboard developed using [Ergogen](https://github.com/ergoge
  2. [ ] Adjust bottom case height to allow battery and PCB clearance
  3. [ ] Route PCB
  4. [ ] Add Wings image to PCB (Nice to have) 
+
+## Notes
+To build Ergogen output and convert the *.jscad* files to *.stl* in the `output/cases` path, run the following command from the current directory:
+```bash
+ergogen . && for f in output/cases/*.jscad; do npx @jscad/cli@1 $f -of stla -o ${f%.*}.stl; done
+```
