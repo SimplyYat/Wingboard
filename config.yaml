@@ -197,13 +197,6 @@ outlines:
       where:
         ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
         shift: [0,4]
-  # Cutout for the Reset Button - TL3342 Low Profile Tactile Switch (https://www.e-switch.com/wp-content/uploads/2022/06/TL3342.pdf)
-  resetButtonCutout:
-    - what: rectangle
-      size: [5.3,5.3]
-      where:
-        ref: matrix_inner_r2
-        shift: [16, -6]
   # Will be used for the top and bottom cases
   xlBoard:
     - what: polygon
@@ -427,15 +420,6 @@ pcbs:
           ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
           shift: [0,4]
           rotate: 0
-      reset:
-        what: button
-        params:
-          from: GND
-          to: RST
-        where:
-          ref: matrix_inner_r2
-          shift: [16, -6]
-          rotate: -70
       power_switch:
         what: slider
         params:
@@ -444,7 +428,18 @@ pcbs:
             to: RAW
         where:
           ref: matrix_index_r1
-          shift: [6.434,11.534]
+          shift: [-3.434,13.734]
+          rotate: -12.5
+      reset:
+        what: reset_switch_smd_side
+        params:
+          side: B
+          from: GND
+          to: RST
+          include_courtyard: true
+        where:
+          ref: mirror_matrix_index_r1
+          shift: [-3.434,13.684]
           rotate: -12.5
       battery_connector:
         what: battery_connector_jst_ph_2
