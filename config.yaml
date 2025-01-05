@@ -197,6 +197,13 @@ outlines:
       where:
         ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
         shift: [0,4]
+  # Cutout for the Rotary Encoder (same size as a switch)
+  rotaryEncoderCutout:
+    - what: rectangle
+      size: [sx,sy]
+      where:
+        ref.aggregate.parts: [thumbfan_home_thumb, mirror_thumbfan_home_thumb]
+        shift: [0, -4]
   # Will be used for the top and bottom cases
   xlBoard:
     - what: polygon
