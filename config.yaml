@@ -110,12 +110,6 @@ outlines:
       where: true
       bound: false
       size: [kx-0.5,ky-0.5]
-  # Will be used for the mock PCB and the top case
-  switches:
-    - what: rectangle
-      where: true
-      bound: false
-      size: [sx,sy]
   battery:
     - what: rectangle
       size: [36,56]
@@ -190,6 +184,27 @@ outlines:
     - name: board
     - operation: subtract
       name: battery
+  # Will be used for the mock PCB and the top case
+  switches:
+    - what: rectangle
+      where: true
+      bound: false
+      size: [sx,sy]
+  # Cutout for the Nice View Display
+  displayCutout:
+    - what: rectangle
+      size: [14.5,36.5]
+      where:
+        ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
+        shift: [0,4]
+  # Cutout for the Reset Button - TL3342 Low Profile Tactile Switch (https://www.e-switch.com/wp-content/uploads/2022/06/TL3342.pdf)
+  resetButtonCutout:
+        what: rectangle
+        size: [5.3,5.3]
+        where:
+          ref: matrix_inner_r2
+          shift: [16, -6]
+  # Will be used for the top and bottom cases
   xlBoard:
     - what: polygon
       operation: stack
