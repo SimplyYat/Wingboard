@@ -21,7 +21,11 @@ A unibody ergonomic keyboard developed using [Ergogen](https://github.com/ergoge
  4. [ ] Add Wings image to PCB (Nice to have) 
 
 ## Notes
-To build Ergogen output and convert the *.jscad* files to *.stl* in the `output/cases` path, run the following command from the current directory:
+1. To get this repo, including the submodule `kb_ergogen_helper`, run the following command:
+```bash
+git clone --recursive <URL of this repo>
+```
+2. To build Ergogen output and convert the *.jscad* files to *.stl* in the `output/cases` path, run the following command from the current directory:
 ```bash
 ergogen . && for f in output/cases/*.jscad; do npx @jscad/cli@1 $f -of stla -o ${f%.*}.stl; done
 ```
