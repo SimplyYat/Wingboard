@@ -25,7 +25,11 @@ A unibody ergonomic keyboard developed using [Ergogen](https://github.com/ergoge
 ```bash
 git clone --recursive <URL of this repo>
 ```
-2. To build Ergogen output and convert the *.jscad* files to *.stl* in the `output/cases` path, run the following command from the current directory:
+2. Since the addition of the `Makefile`, the following command can be used to build the output, convert the *.jscad* files to *.stl* in the `output/cases` path, and update traces on the PCB from last changes:
+```bash
+make build
+```
+3. If the make command above doesn't work, then build the output and convert the *.jscad* files to *.stl* in the `output/cases` path, run the following command from the current directory:
 ```bash
 ergogen . && for f in output/cases/*.jscad; do npx @jscad/cli@1 $f -of stla -o ${f%.*}.stl; done
 ```
