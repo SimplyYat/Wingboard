@@ -38,30 +38,30 @@ points:
         pinky:
           rows.r5.skip: true
           key.column_net: P031
-          key.mirror.column_net: P022
+          key.mirror.column_net: P006
         ring:
           key.splay: -5
           key.origin: [-12, -19]
           key.stagger: 12
           rows.r5.skip: true
           key.column_net: P029
-          key.mirror.column_net: P020
+          key.mirror.column_net: P008
         middle:
           key.stagger: 5
           key.column_net: P002
           key.mirror.column_net: P017
           rows.r5.column_net: P029
-          rows.r5.mirror.column_net: P020
+          rows.r5.mirror.column_net: P008
         index:
           key.stagger: -6
           rows.r5.skip: true
           key.column_net: P115
-          key.mirror.column_net: P008
+          key.mirror.column_net: P020
         inner:
           key.stagger: -2
           rows.r5.skip: true
           key.column_net: P113
-          key.mirror.column_net: P006
+          key.mirror.column_net: P022
       rows:
         r5:
           row_net: P106
@@ -89,13 +89,13 @@ points:
           key.splay: -28
           key.origin: [-11.75, -9]
           key.column_net: P115
-          key.mirror.column_net: P008
+          key.mirror.column_net: P020
         far:
           key.spread: 21.25
           key.splay: -28
           key.origin: [-9.5, -9]
           key.column_net: P113
-          key.mirror.column_net: P006
+          key.mirror.column_net: P022
       rows:
         thumb:
           row_net: P106

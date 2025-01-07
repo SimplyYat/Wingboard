@@ -43,7 +43,7 @@ build-nt: ## Same as `build`, but don't restore traces
 backup: ## Backups the current pcb folder
 	@echo "Creating backup $(BACKUP_PATH)..."
 	@mkdir -p $(BACKUP_PATH)
-	@cp -r output/pcbs/ $(BACKUP_PATH)
+	@cp -r pcb $(BACKUP_PATH)
 
 create-pcb-directory: ## Create the pcb directory
 	@echo "Checking for 'pcb' directory..."
