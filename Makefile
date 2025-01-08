@@ -41,9 +41,14 @@ build-nt: ## Same as `build`, but don't restore traces
 	@$(MAKE) lock-traces
 
 backup: ## Backups the current pcb folder
-	@echo "Creating backup $(BACKUP_PATH)..."
-	@mkdir -p $(BACKUP_PATH)
-	@cp -r pcb $(BACKUP_PATH)
+	@if [ -d "pcb" ]; \
+	then \
+		echo "Creating backup $(BACKUP_PATH)..."; \
+		mkdir -p $(BACKUP_PATH); \
+		cp -r pcb $(BACKUP_PATH); \
+	else \
+		echo "PCB directory not present. Nothing to backup..."; \
+	fi
 
 create-pcb-directory: ## Create the pcb directory
 	@echo "Checking for 'pcb' directory..."

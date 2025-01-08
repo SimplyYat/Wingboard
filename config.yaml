@@ -465,6 +465,8 @@ pcbs:
           A: P024
           B: GND
           C: P100
+          S1: P011
+          S2: GND
         where:
           ref.aggregate.parts: [thumbfan_home_thumb, mirror_thumbfan_home_thumb]
           shift: [0, -4]
