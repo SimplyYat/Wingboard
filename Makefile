@@ -26,9 +26,9 @@ build: ## Backup current pcbs, run ergogen, update lock traces, restore traces f
 	@$(MAKE) restore-traces
 
 build-nt: ## Same as `build`, but don't restore traces
-	@$(MAKE) create-pcb-directory
-	@echo "\n"
 	@$(MAKE) backup
+	@echo "\n"
+	@$(MAKE) create-pcb-directory
 	@echo "\n"
 	@$(MAKE) ergogen
 	@echo "\n"
@@ -40,14 +40,14 @@ build-nt: ## Same as `build`, but don't restore traces
 	@echo "\n"
 	@$(MAKE) lock-traces
 
-backup: ## Backups the current pcb folder
+backup: ## Create a backup of the current pcb folder
 	@if [ -d "pcb" ]; \
 	then \
 		echo "Creating backup $(BACKUP_PATH)..."; \
 		mkdir -p $(BACKUP_PATH); \
 		cp -r pcb $(BACKUP_PATH); \
 	else \
-		echo "PCB directory not present. Nothing to backup..."; \
+		echo "'pcb' directory not present. Nothing to backup..."; \
 	fi
 
 create-pcb-directory: ## Create the pcb directory
@@ -72,11 +72,14 @@ lock-traces: ## Locks all traces in pcb file
 
 restore-traces: ## Restores traces from latest backup
 	@echo "Restoring traces..."
-	@$(KICAD_PY_PATH) resources/kb_ergogen_helper/ergogen_helper.py --no-backup copy-traces --unlocked-only $(LAST_BACKUP_PATH)/$(PCB_FILE_NAME) pcb/$(PCB_FILE_NAME)
+	@$(KICAD_PY_PATH) resources/kb_ergogen_helper/ergogen_helper.py --no-backup copy-traces --unlocked-only $(LAST_BACKUP_PATH)/pcb/$(PCB_FILE_NAME) pcb/$(PCB_FILE_NAME)
 
 generate-stl:
 	@echo "Generating STL files..."
 	@for f in output/cases/*.jscad; do npx @jscad/cli@1 $$f -of stla -o $${f%.*}.stl; done
+
+last-backup-path:
+	@echo $(LAST_BACKUP_PATH)
 
 help: ## Show this help
 	@{ \
