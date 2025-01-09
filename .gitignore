@@ -17,3 +17,4 @@
 output/
 backups/
 pcb/fp-info-cache
+pcb/*autosave*

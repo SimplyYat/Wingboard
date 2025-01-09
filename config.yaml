@@ -105,7 +105,7 @@ points:
     distance: 233.7529778
 outlines:
   # Will be used for the mock PCB and the top case
-  switches:
+  switchesOutline:
     - what: rectangle
       where: true
       bound: false
@@ -116,12 +116,12 @@ outlines:
       where: true
       bound: false
       size: [kx-0.5,ky-0.5]
-  battery:
+  batteryOutline:
     - what: rectangle
-      size: [36,56]
+      size: [36,52]
       where:
         ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
-        shift: [0,-37.5]
+        shift: [0,-38.5]
         rotate: 90
   board:
     - what: polygon
@@ -183,13 +183,13 @@ outlines:
   comboMockPCB:
       - name: board
       - operation: subtract
-        name: battery
+        name: batteryOutline
       - operation: subtract
-        name: switches
+        name: switchesOutline
   cutboard:
     - name: board
     - operation: subtract
-      name: battery
+      name: batteryOutline
   # Cutout for the Nice View Display
   displayCutout:
     - what: rectangle
