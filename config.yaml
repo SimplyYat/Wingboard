@@ -415,6 +415,16 @@ pcbs:
           ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
           shift: [0,5]
           rotate: 0
+      mcu_text:
+        what: utility_text
+        where: 
+          ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
+          shift: [0,5]
+          rotate: 90
+        params:
+          side: "B"
+          text: "Supermini NRF52840\\ngoes here"
+          mirrored: true
       display:
         what: display_nice_view
         params:
@@ -427,6 +437,15 @@ pcbs:
           ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
           shift: [0,4]
           rotate: 0
+      display_text:
+        what: utility_text
+        where: 
+          ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
+          shift: [0,4]
+          rotate: -90
+        params:
+          side: F
+          text: "Nice!View\\ngoes here"
       power_switch:
         what: slider
         params:
@@ -507,6 +526,47 @@ pcbs:
         where:
           ref: mirror_matrix_index_r4
           shift: [-0.2px, -py]
+      # Filled Zone (GND fill)
+      gnd_fill:
+        what: utility_filled_zone
+        params:
+          side: "F&B"
+          net: "GND"
+          pad_clearance: 0.3
+          remove_islands: "never"
+      board_name_text:
+        what: utility_text
+        where: 
+          ref.aggregate.parts: [thumbfan_home_thumb, mirror_thumbfan_home_thumb]
+          shift: [0, -13]
+        params:
+          side: "F"
+          reversible: true
+          text: "WINGBOARD"
+          face: "Futura"
+          height: 3.5
+          width: 3.5
+      board_front_text:
+        what: utility_text
+        where: 
+          ref.aggregate.parts: [thumbfan_far_thumb, mirror_thumbfan_far_thumb]
+          shift: [0, 4]
+        params:
+          side: "F"
+          text: "Front"
+          height: 2
+          width: 2
+      board_back_text:
+        what: utility_text
+        where: 
+          ref.aggregate.parts: [thumbfan_far_thumb, mirror_thumbfan_far_thumb]
+          shift: [0, 4]
+        params:
+          side: "B"
+          text: "Back"
+          height: 2
+          width: 2
+          mirrored: true
 cases:
   _bottom:
     - name: board
