@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "wingboard.kicad_pro")(type "KiCad")(uri "${KIPRJMOD}/wingboard.kicad_pro.pretty")(options "")(descr ""))
+)
