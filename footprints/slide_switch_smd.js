@@ -441,7 +441,7 @@ module.exports = {
       )
       `;
     const model_3d = `
-      (model ${p.slide_switch_3dmodel_filename}
+      (model "${p.slide_switch_3dmodel_filename}"
         (offset
           (xyz ${p.slide_switch_3dmodel_xyz_offset[0]} ${p.slide_switch_3dmodel_xyz_offset[1]} ${p.slide_switch_3dmodel_xyz_offset[2]})
         )

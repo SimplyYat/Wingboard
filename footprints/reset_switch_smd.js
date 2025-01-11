@@ -322,7 +322,7 @@ module.exports = {
       )
       `;
     const model_3d = `
-      (model ${p.reset_switch_3dmodel_filename}
+      (model "${p.reset_switch_3dmodel_filename}"
         (offset
           (xyz ${p.reset_switch_3dmodel_xyz_offset[0]} ${p.reset_switch_3dmodel_xyz_offset[1]} ${p.reset_switch_3dmodel_xyz_offset[2]})
         )

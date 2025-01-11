@@ -468,16 +468,37 @@ pcbs:
           shift: [-3.434,13.684]
           rotate: -12.5
       battery_connector:
-        what: battery_connector_jst_ph_2
+        what: jstph2_battery_connector
         params:
           side: B
           BAT_P: BAT_P
           BAT_N: GND
         where:
           ref: mirror_matrix_inner_r2
-          shift: [14, 0]
+          shift: [15, -5]
+          rotate: -160
+      battery_connector_minus_text:
+        what: utility_text
+        where: 
+          ref: mirror_matrix_inner_r2
+          shift: [15, -10.5]
           rotate: 20
-
+        params:
+          side: "B"
+          text: "-"
+          height: 2
+          width: 2
+      battery_connector_plus_text:
+        what: utility_text
+        where: 
+          ref: mirror_matrix_inner_r2
+          shift: [18, -9.5]
+          rotate: 20
+        params:
+          side: "B"
+          text: "+"
+          height: 2
+          width: 2
       rotary_encoder:
         what: rotary_encoder_ec11_ec12
         params:
