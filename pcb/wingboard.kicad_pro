@@ -37,9 +37,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 0.762,
-          "height": 1.524,
-          "width": 1.524
+          "drill": 0.75,
+          "height": 3.5,
+          "width": 1.0
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -104,7 +104,8 @@
         "clearance|92539018|78738127|c7df5ec8-24a7-4cff-9ab6-d15fe4168777|c40f22f2-0308-4706-95ad-df832d87e5d2",
         "clearance|93720559|128120350|f439088c-2187-49bf-9d5b-a8c0280791c0|4979e4d5-ecfd-4266-93be-0aaf3df736a4",
         "clearance|98353361|62763352|fd73390d-d632-40d6-9ae6-6b9168f7cf49|3b1c653f-292e-4c17-9bf1-4fd12bd76d3e",
-        "clearance|99534901|112145575|f3e5532b-dd35-4479-ad89-2d7cf362a018|ab722d12-867f-4489-acfe-02afa4c9b492"
+        "clearance|99534901|112145575|f3e5532b-dd35-4479-ad89-2d7cf362a018|ab722d12-867f-4489-acfe-02afa4c9b492",
+        "lib_footprint_mismatch|191400000|103750000|4c654e8d-032b-4b0a-9886-35469fcc1d00|00000000-0000-0000-0000-000000000000"
       ],
       "meta": {
         "version": 2
@@ -178,7 +179,7 @@
         "min_track_width": 0.0,
         "min_via_annular_width": 0.1,
         "min_via_diameter": 0.3,
-        "solder_mask_to_copper_clearance": 0.0,
+        "solder_mask_to_copper_clearance": 0.005,
         "use_height_for_length_calcs": true
       },
       "teardrop_options": [

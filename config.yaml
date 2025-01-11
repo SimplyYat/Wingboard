@@ -352,9 +352,10 @@ pcbs:
           from: "{{column_net}}"
           to: "{{colrow}}"
       diode:
-        what: diode
+        what: diode_tht_sod123
         where: true
         params:
+          side: B
           from: "{{colrow}}"
           to: "{{row_net}}"
         adjust:
@@ -447,7 +448,7 @@ pcbs:
           side: F
           text: "Nice!View\\ngoes here"
       power_switch:
-        what: slider
+        what: slide_switch_smd
         params:
             side: B
             from: BAT_P
@@ -457,12 +458,11 @@ pcbs:
           shift: [-3.434,13.734]
           rotate: -12.5
       reset:
-        what: reset_switch_smd_side
+        what: reset_switch_smd
         params:
           side: B
           from: GND
           to: RST
-          include_courtyard: true
         where:
           ref: mirror_matrix_index_r1
           shift: [-3.434,13.684]
@@ -477,6 +477,7 @@ pcbs:
           ref: mirror_matrix_inner_r2
           shift: [14, 0]
           rotate: 20
+
       rotary_encoder:
         what: rotary_encoder_ec11_ec12
         params:
