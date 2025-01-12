@@ -13,6 +13,7 @@ A unibody ergonomic keyboard developed using [Ergogen](https://github.com/ergoge
 Component | Type (THT, SMD, or No Solder) | Link | Quantity | LCSC Part Number (for SMT Assembly through JLCPCB)
 ---------|---------|----------|---------|---------
  Diode SOD-123/323 (1N4148/W) | SMD | [AliExpress](https://www.aliexpress.com/item/1005003194674618.html?spm=a2g0o.productlist.main.1.573bJia8Jia8Wb&algo_pvid=a8ea4330-8dd0-4ccf-9e2d-acbd802ee4b5&algo_exp_id=a8ea4330-8dd0-4ccf-9e2d-acbd802ee4b5-0&pdp_npi=4%40dis%21AUD%210.59%210.59%21%21%210.36%210.36%21%402103277f17365036595674485e2399%2112000024602962919%21sea%21AU%214011953287%21X&curPageLogUid=sZfdotSVyEA4&utparam-url=scene%3Asearch%7Cquery_from%3A) | 48 | [C81598](https://jlcpcb.com/partdetail/st_semtech-1N4148W/C81598)
+ Kailh Low Profile Hot Swap Switches | SMD | 48 | [C5333465](https://jlcpcb.com/partdetail/Kailh-CPG135001S30/C5333465)
  Choc V2 Key Switches | No Solder | TBD | 48 | Manual install
  Choc V2 Key Caps | No Solder | 48 | Manual install
  Supermini NRF52840 MCU | THT | [AliExpress](https://www.aliexpress.com/item/1005001621678794.html?spm=a2g0o.productlist.main.3.22256MXM6MXMOc&algo_pvid=cc1cb5f0-bcd5-4dfa-9185-add9e4eee768&algo_exp_id=cc1cb5f0-bcd5-4dfa-9185-add9e4eee768-1&pdp_npi=4%40dis%21AUD%215.83%215.83%21%21%213.56%213.56%21%402101c5b217365044374885419ea55b%2112000016846541261%21sea%21AU%214011953287%21X&curPageLogUid=yQVmE2QrahaR&utparam-url=scene%3Asearch%7Cquery_from%3A) | 1 | Manual install
@@ -22,6 +23,16 @@ Component | Type (THT, SMD, or No Solder) | Link | Quantity | LCSC Part Number (
  Power Switch | SMD | TBD | 1 | Manual install
  JST PH 2.0mm 2-Pin Connector for Battery | SMD | [AliExpress (Horizontal ones)](https://www.aliexpress.com/item/1005005716487667.html?spm=a2g0o.productlist.main.5.67c455a9adJlS7&algo_pvid=41dd92c8-d88c-4ea2-bfcc-14092ce2489a&algo_exp_id=41dd92c8-d88c-4ea2-bfcc-14092ce2489a-2&pdp_npi=4%40dis%21AUD%214.11%213.21%21%21%212.51%211.96%21%402103247017365042545152094e1659%2112000034101497981%21sea%21AU%214011953287%21X&curPageLogUid=cfPpyCUyls7w&utparam-url=scene%3Asearch%7Cquery_from%3A) | 1 | [C7527581](https://jlcpcb.com/partdetail/Lian_XinTechnology-XDWF_092002P/C7527581)
 
+## How to build
+1. Order the PCB from the `pcb/production` folder through your preferred PCB fabrication service like JLCPCB, PCBWay, etc.
+2. If you're ordering through JLCPCB, you can optionally use their SMT Assembly service to solder some components for you, the LCSC parts number are already added to the PCB, use the `pcb/production/bom.csv` and `pcb/production/positions.csv` as the BOM and Pick and Place files, respectively. Currently, the PCB includes LCSC part numbers for the bottom side only, for these parts (check the LCSC column above for links):
+   1. 1N4148W SMD Diodes
+   2. Kailh Low Profile Hot Swap Switches (they didn't have these in stock, so I couldn't order them, but they're there for when they have stock)
+   3. Side Push Reset Switch (EVQPUC02K)
+   4. JST PH 2.0mm 2-Pin Connector for Battery
+   5. SMD Slider Power Switch
+3. Source the rest of the components from your preferred suppliers and get to Soldering.
+4. I'm still working on building a top case for this keyboard, so stay tuned for updates.
 
 ## Pending Items
 1. [ ] Add top case with cutouts for:
