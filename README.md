@@ -44,8 +44,8 @@ Component | Type (THT, SMD, or No Solder) | Link | Quantity | LCSC Part Number (
     5. [ ] USB-C port
     6. [ ] Screw holes
  2. [ ] Adjust bottom case height to allow battery and PCB clearance
- 3. [ ] Route PCB
- 4. [ ] Add Wings image to PCB (Nice to have) 
+ 3. [x] Route PCB
+ 4. [x] Add Wings image to PCB (Nice to have) 
 
 ## Notes
 1. To get this repo, including the submodule `kb_ergogen_helper`, run the following command:
