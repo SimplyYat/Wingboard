@@ -24,6 +24,17 @@ units:
   # Defaults to M2 Screw Inserts
   screwSize: 1.5
   standoffSize: 2.5
+  # Encoder Knob Width and Height (The knob I chose is this one: https://www.aliexpress.com/item/1005004171280417.html
+  # , which has a diameter of 20.18mm, so setting the cutout width and height to 20.3mm)
+  encoderCutoutX: 20.3
+  encoderCutoutY: 20.3
+  # Nice!View Sizes
+  displaySizeX: 12.8
+  displaySizeY: 27.3
+  displayBezel: 1
+  # Battery Cutout Size
+  batteryCutoutX: 36
+  batteryCutoutY: 52
 points:
   zones:
     matrix:
@@ -118,7 +129,7 @@ outlines:
       size: [kx-0.5,ky-0.5]
   batteryOutline:
     - what: rectangle
-      size: [36,52]
+      size: [batteryCutoutX,batteryCutoutY]
       where:
         ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
         shift: [0,-38.5]
@@ -193,14 +204,14 @@ outlines:
   # Cutout for the Nice View Display
   displayCutout:
     - what: rectangle
-      size: [14.5,36.5]
+      size: [displaySizeX,displaySizeY]
       where:
         ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
         shift: [0,4]
-  # Cutout for the Rotary Encoder (same size as a switch)
+  # Cutout for the Rotary Encoder
   rotaryEncoderCutout:
     - what: rectangle
-      size: [sx,sy]
+      size: [encoderCutoutX,encoderCutoutY]
       where:
         ref.aggregate.parts: [thumbfan_home_thumb, mirror_thumbfan_home_thumb]
         shift: [0, -4]
@@ -334,6 +345,12 @@ outlines:
       where:
         ref: mirror_matrix_index_r4
         shift: [-0.2px, -py]
+  comboTop:
+    - name: xlBoard
+    - operation: subtract
+      name: switchesOutline
+    - operation: subtract
+      name: displayCutout
 pcbs:
   wingboard:
     template: kicad8 # Required, since footprints are KiCad 8 only
@@ -592,10 +609,10 @@ pcbs:
 cases:
   _bottom:
     - name: board
-      extrude: 1
+      extrude: 2
   _xlBottom:
     - name: xlBoard
-      extrude: 1
+      extrude: 2
   _outerWall:
     - name: xlBoard
       extrude: 4
@@ -628,6 +645,9 @@ cases:
     - what: case
       name: _wall
       operation: add
+  caseTop:
+    - name: comboTop
+      extrude: 2
   mockPCB:
     - name: comboMockPCB
       extrude: 1.6
