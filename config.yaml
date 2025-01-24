@@ -24,10 +24,16 @@ units:
   # Defaults to M2 Screw Inserts
   screwSize: 1.5
   standoffSize: 2.5
-  # Encoder Knob Width and Height (The knob I chose is this one: https://www.aliexpress.com/item/1005004171280417.html
-  # , which has a diameter of 20.18mm, so setting the cutout width and height to 20.3mm)
-  encoderCutoutX: 20.3
-  encoderCutoutY: 20.3
+  # PCB assembly component dimensions
+  pcbThickness: 1.6
+  switchInnerHeight: 2.2
+  # Rotary encoder cutout width and height
+  # 15mm semicircle handle EC11 from here: https://www.aliexpress.com/item/1005007644083514.html?spm=a2g0o.order_list.order_list_main.34.75071802s8Sylp
+  encoderBaseX: 14.7
+  encoderBaseY: 12
+  encoderShaftRadius: 3
+  encoderShaftHeight: 15
+  encoderBaseHeight: 6.5
   # Nice!View Sizes
   displaySizeX: 12.8
   displaySizeY: 27.3
@@ -121,6 +127,11 @@ outlines:
       where: true
       bound: false
       size: [sx,sy]
+  switchesTopLayers:
+    - what: rectangle
+      where: true
+      bound: false
+      size: [sx+1,sy+1]
   # Will be used for the PCB
   keys:
     - what: rectangle
@@ -191,12 +202,6 @@ outlines:
           shift: [halfX,-halfY]
         - ref: matrix_pinky_r4
           shift: [-halfX,-halfY]
-  comboMockPCB:
-      - name: board
-      - operation: subtract
-        name: batteryOutline
-      - operation: subtract
-        name: switchesOutline
   cutboard:
     - name: board
     - operation: subtract
@@ -208,10 +213,16 @@ outlines:
       where:
         ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
         shift: [0,4]
-  # Cutout for the Rotary Encoder
-  rotaryEncoderCutout:
+  # Rotary Encoder Outlines
+  rotaryEncoderBase:
     - what: rectangle
-      size: [encoderCutoutX,encoderCutoutY]
+      size: [encoderBaseX,encoderBaseY]
+      where:
+        ref.aggregate.parts: [thumbfan_home_thumb, mirror_thumbfan_home_thumb]
+        shift: [0, -4]
+  rotaryEncoderShaftBase:
+    - what: circle
+      radius: encoderShaftRadius
       where:
         ref.aggregate.parts: [thumbfan_home_thumb, mirror_thumbfan_home_thumb]
         shift: [0, -4]
@@ -351,6 +362,16 @@ outlines:
       name: switchesOutline
     - operation: subtract
       name: displayCutout
+  comboMockPCB:
+      - name: cutboard
+      - operation: subtract
+        name: switchesOutline
+      - operation: subtract
+        name: mounting
+  pcbOutlineWithHoles:
+      - name: cutboard
+      - operation: subtract
+        name: mounting
 pcbs:
   wingboard:
     template: kicad8 # Required, since footprints are KiCad 8 only
@@ -650,4 +671,49 @@ cases:
       extrude: 2
   mockPCB:
     - name: comboMockPCB
-      extrude: 1.6
+      extrude: pcbThickness
+  _switchesOuterWall:
+    - name: switchesTopLayers
+      extrude: pcbThickness+switchInnerHeight
+  _switchesInnerWall:
+    - name: switchesOutline
+      extrude: pcbThickness+switchInnerHeight
+  _switchesWall:
+    - what: case
+      name: _switchesOuterWall
+      operation: add
+    - what: case
+      name: _switchesInnerWall
+      operation: subtract
+  _switchesOuterHigh:
+    - name: switchesTopLayers
+      extrude: pcbThickness+switchInnerHeight+2
+  _switchesStructure:
+    - what: case
+      name: _switchesOuterHigh
+      operation: add
+    - what: case
+      name: _switchesWall
+      operation: subtract
+  _rotaryEncoderBase:
+    - name: rotaryEncoderBase
+      extrude: pcbThickness+encoderBaseHeight
+  _rotaryEncoderShaft:
+    - name: rotaryEncoderShaftBase
+      extrude: pcbThickness+encoderBaseHeight+encoderShaftHeight
+  _rotaryEncoder:
+    - what: case
+      name: _rotaryEncoderBase
+      operation: add
+    - what: case
+      name: _rotaryEncoderShaft
+      operation: add
+  mockAssembledPCB:
+    - name: pcbOutlineWithHoles
+      extrude: pcbThickness
+    - what: case
+      name: _switchesStructure
+      operation: add
+    - what: case
+      name: _rotaryEncoder
+      operation: add
