@@ -27,6 +27,7 @@ units:
   # PCB assembly component dimensions
   pcbThickness: 1.6
   switchInnerHeight: 2.2
+  millMaxConnectorHeight: 10
   # Rotary encoder cutout width and height
   # 15mm semicircle handle EC11 from here: https://www.aliexpress.com/item/1005007644083514.html?spm=a2g0o.order_list.order_list_main.34.75071802s8Sylp
   encoderBaseX: 14.7
@@ -38,9 +39,18 @@ units:
   displaySizeX: 12.8
   displaySizeY: 27.3
   displayBezel: 1
+  niceViewConnectorHeight: millMaxConnectorHeight
+  niceViewConnectorY: 4.6
+  niceViewBaseX: 14
+  niceViewBaseY: 36
+  niceViewModuleThickness: 3
   # Battery Cutout Size
   batteryCutoutX: 36
   batteryCutoutY: 52
+  # MCU Size
+  mcuSizeX: 18
+  mcuSizeY: 35
+  mcuConnectorHeight: millMaxConnectorHeight
 points:
   zones:
     matrix:
@@ -206,8 +216,27 @@ outlines:
     - name: board
     - operation: subtract
       name: batteryOutline
-  # Cutout for the Nice View Display
-  displayCutout:
+  # Nice!View module
+  niceViewModule:
+    - what: rectangle
+      size: [niceViewBaseX,niceViewBaseY]
+      where:
+        ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
+        shift: [0,4]
+  niceViewPinsConnector:
+    - what: rectangle
+      size: [niceViewBaseX,niceViewConnectorY]
+      where:
+        ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
+        shift: [0,6.3-(niceViewBaseY/2)]
+  spaceUnderNiceViewModule:
+    - what: rectangle
+      size: [niceViewBaseX,niceViewBaseY-niceViewConnectorY]
+      where:
+        ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
+        shift: [0,4+(niceViewBaseY/2)]
+  # Base for the Display portion of the Nice!View module
+  niceViewDisplayBase:
     - what: rectangle
       size: [displaySizeX,displaySizeY]
       where:
@@ -361,7 +390,7 @@ outlines:
     - operation: subtract
       name: switchesOutline
     - operation: subtract
-      name: displayCutout
+      name: niceViewDisplayBase
   comboMockPCB:
       - name: cutboard
       - operation: subtract
@@ -708,6 +737,25 @@ cases:
     - what: case
       name: _rotaryEncoderShaft
       operation: add
+  _niceViewPinsConnector:
+    - name: niceViewPinsConnector
+      extrude: pcbThickness+niceViewConnectorHeight
+  _niceViewModuleAboveConnector:
+    - name: niceViewModule
+      extrude: pcbThickness+niceViewConnectorHeight+niceViewModuleThickness
+  _spaceUnderNiceViewModule:
+    - name: niceViewModule
+      extrude: pcbThickness+niceViewConnectorHeight
+  niceViewModule:
+    - what: case
+      name: _niceViewPinsConnector
+      operation: add
+    - what: case
+      name: _niceViewModuleAboveConnector
+      operation: add
+    - what: case
+      name: _spaceUnderNiceViewModule
+      operation: subtract
   mockAssembledPCB:
     - name: pcbOutlineWithHoles
       extrude: pcbThickness
@@ -716,4 +764,7 @@ cases:
       operation: add
     - what: case
       name: _rotaryEncoder
+      operation: add
+    - what: case
+      name: niceViewModule
       operation: add
