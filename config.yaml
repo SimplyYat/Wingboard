@@ -28,6 +28,8 @@ units:
   pcbThickness: 1.6
   switchInnerHeight: 2.2
   millMaxConnectorHeight: 10
+  millMaxConnectorThickness: 3
+  millMaxSolderHeight: 1.5
   # Rotary encoder cutout width and height
   # 15mm semicircle handle EC11 from here: https://www.aliexpress.com/item/1005007644083514.html?spm=a2g0o.order_list.order_list_main.34.75071802s8Sylp
   encoderBaseX: 14.7
@@ -39,7 +41,7 @@ units:
   displaySizeX: 12.8
   displaySizeY: 27.3
   displayBezel: 1
-  niceViewConnectorHeight: millMaxConnectorHeight
+  niceViewConnectorHeight: 7.5
   niceViewConnectorY: 4.6
   niceViewBaseX: 14
   niceViewBaseY: 36
@@ -50,7 +52,10 @@ units:
   # MCU Size
   mcuSizeX: 18
   mcuSizeY: 35
-  mcuConnectorHeight: millMaxConnectorHeight
+  mcuConnectorHeight: 9
+  mcuPlusUSBThickness: 4
+  mcuUSBWidth: 9
+  mcuUSBOffset: 1
 points:
   zones:
     matrix:
@@ -234,7 +239,7 @@ outlines:
       size: [niceViewBaseX,niceViewBaseY-niceViewConnectorY]
       where:
         ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
-        shift: [0,4+(niceViewBaseY/2)]
+        shift: [0,4+(niceViewBaseY)]
   # Base for the Display portion of the Nice!View module
   niceViewDisplayBase:
     - what: rectangle
@@ -255,6 +260,29 @@ outlines:
       where:
         ref.aggregate.parts: [thumbfan_home_thumb, mirror_thumbfan_home_thumb]
         shift: [0, -4]
+  mcuOutline:
+    - what: rectangle
+      size: [mcuSizeX,mcuSizeY]
+      where:
+        ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
+        shift: [0,5]
+  mcuUSBOutline:
+    - what: rectangle
+      size: [mcuUSBWidth,mcuUSBOffset]
+      where:
+        ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
+        shift: [0,5.5+(mcuSizeY/2)]
+  mcuPinsConnectors:
+    - what: rectangle
+      size: [millMaxConnectorThickness, mcuSizeY]
+      where:
+        ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
+        shift: [-mcuSizeX,5]
+    - what: rectangle
+      size: [millMaxConnectorThickness, mcuSizeY]
+      where:
+        ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
+        shift: [mcuSizeX,5]
   # Will be used for the top and bottom cases
   xlBoard:
     - what: polygon
@@ -737,25 +765,35 @@ cases:
     - what: case
       name: _rotaryEncoderShaft
       operation: add
-  _niceViewPinsConnector:
-    - name: niceViewPinsConnector
-      extrude: pcbThickness+niceViewConnectorHeight
   _niceViewModuleAboveConnector:
     - name: niceViewModule
       extrude: pcbThickness+niceViewConnectorHeight+niceViewModuleThickness
   _spaceUnderNiceViewModule:
     - name: niceViewModule
       extrude: pcbThickness+niceViewConnectorHeight
+    - name: niceViewPinsConnector
+      extrude: pcbThickness+niceViewConnectorHeight
+      operation: subtract
   niceViewModule:
-    - what: case
-      name: _niceViewPinsConnector
-      operation: add
     - what: case
       name: _niceViewModuleAboveConnector
       operation: add
     - what: case
       name: _spaceUnderNiceViewModule
       operation: subtract
+  # _mcuOutline:
+  #   - name: mcuOutline
+  #     extrude: -(mcuConnectorHeight+mcuPlusUSBThickness)
+  # _mcuUSBOutline:
+  #   - name: mcuUSBOutline
+  #     extrude: -(mcuConnectorHeight+mcuPlusUSBThickness)
+  # mcu:
+  #   - what: case
+  #     name: _mcuOutline
+  #     operation: add
+  #   - what: case
+  #     name: _mcuUSBOutline
+  #     operation: add
   mockAssembledPCB:
     - name: pcbOutlineWithHoles
       extrude: pcbThickness

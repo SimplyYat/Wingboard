@@ -60,3 +60,10 @@ make build
 ```bash
 ergogen . && for f in output/cases/*.jscad; do npx @jscad/cli@1 $f -of stla -o ${f%.*}.stl; done
 ```
+OR
+```powershell
+foreach ($file in Get-Item .\output\cases\*.jscad) {
+   $basefilename=[System.IO.Path]::GetFileNameWithoutExtension($file.Name)
+   npx @jscad/cli@1 $file -of stla -o ./output/cases/$basefilename.stl
+}
+```
