@@ -277,12 +277,12 @@ outlines:
       size: [millMaxConnectorThickness, mcuSizeY]
       where:
         ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
-        shift: [-mcuSizeX,5]
+        shift: [1.5-(mcuSizeX/2),5]
     - what: rectangle
       size: [millMaxConnectorThickness, mcuSizeY]
       where:
         ref.aggregate.parts: [matrix_inner_r2, mirror_matrix_inner_r2]
-        shift: [mcuSizeX,5]
+        shift: [(mcuSizeX/2)-1.5,5]
   # Will be used for the top and bottom cases
   xlBoard:
     - what: polygon
@@ -429,6 +429,20 @@ outlines:
       - name: cutboard
       - operation: subtract
         name: mounting
+  resetSwitch:
+    - what: rectangle
+      size: [5, 5]
+      where:
+          ref: mirror_matrix_index_r1
+          shift: [-3.434,13.684]
+          rotate: -12.5
+  powerSwitch:
+    - what: rectangle
+      size: [7, 5]
+      where:
+          ref: matrix_index_r1
+          shift: [-3.434,13.734]
+          rotate: -12.5
 pcbs:
   wingboard:
     template: kicad8 # Required, since footprints are KiCad 8 only
@@ -781,19 +795,6 @@ cases:
     - what: case
       name: _spaceUnderNiceViewModule
       operation: subtract
-  # _mcuOutline:
-  #   - name: mcuOutline
-  #     extrude: -(mcuConnectorHeight+mcuPlusUSBThickness)
-  # _mcuUSBOutline:
-  #   - name: mcuUSBOutline
-  #     extrude: -(mcuConnectorHeight+mcuPlusUSBThickness)
-  # mcu:
-  #   - what: case
-  #     name: _mcuOutline
-  #     operation: add
-  #   - what: case
-  #     name: _mcuUSBOutline
-  #     operation: add
   mockAssembledPCB:
     - name: pcbOutlineWithHoles
       extrude: pcbThickness
